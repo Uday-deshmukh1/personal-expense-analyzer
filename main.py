@@ -1,4 +1,3 @@
-import os
 import sys
 
 from expense_manager import add_expense, view_expenses, delete_expense
@@ -10,6 +9,7 @@ from analyzer import (
     display_highest_expense,
     display_monthly_analysis,
 )
+from report import generate_category_graph, generate_monthly_graph
 
 
 def print_menu():
@@ -33,36 +33,43 @@ def print_menu():
 
 def main():
     while True:
-        print_menu()
-        choice = input("Enter your choice: ").strip()
+        try:
+            print_menu()
+            choice = input("Enter your choice: ").strip()
 
-        if choice == "1":
-            add_expense()
-        elif choice == "2":
-            view_expenses()
-        elif choice == "3":
-            delete_expense()
-        elif choice == "4":
-            display_total_expense()
-        elif choice == "5":
-            display_average_expense()
-        elif choice == "6":
-            display_category_analysis()
-        elif choice == "7":
-            display_payment_analysis()
-        elif choice == "8":
-            display_highest_expense()
-        elif choice == "9":
-            display_monthly_analysis()
-        elif choice == "10":
-            print("Graph generation coming soon.")
-        elif choice == "11":
-            print("Report generation coming soon.")
-        elif choice == "12":
-            print("Goodbye!")
+            if choice == "1":
+                add_expense()
+            elif choice == "2":
+                view_expenses()
+            elif choice == "3":
+                delete_expense()
+            elif choice == "4":
+                display_total_expense()
+            elif choice == "5":
+                display_average_expense()
+            elif choice == "6":
+                display_category_analysis()
+            elif choice == "7":
+                display_payment_analysis()
+            elif choice == "8":
+                display_highest_expense()
+            elif choice == "9":
+                display_monthly_analysis()
+            elif choice == "10":
+                generate_category_graph()
+                generate_monthly_graph()
+            elif choice == "11":
+                print("Report generation coming soon.")
+            elif choice == "12":
+                print("Goodbye!")
+                sys.exit()
+            else:
+                print("Invalid choice. Please enter a number between 1 and 12.")
+        except KeyboardInterrupt:
+            print("\nGoodbye!")
             sys.exit()
-        else:
-            print("Invalid choice. Please enter a number between 1 and 12.")
+        except Exception as e:
+            print(f"\nAn error occurred: {e}")
 
 
 if __name__ == "__main__":
