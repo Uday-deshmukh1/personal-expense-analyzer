@@ -35,3 +35,18 @@ def display_average_expense():
     average = df["amount"].mean()
     print(f"Number of expenses: {len(df)}")
     print(f"Average expense: {average:.2f}")
+
+
+def display_category_analysis():
+    print("\n--- Category Wise Analysis ---")
+    df = load_dataframe()
+    if df.empty:
+        print("No expenses recorded yet.")
+        return
+    category_total = df.groupby("category")["amount"].sum().sort_values(ascending=False)
+    print(f"{'Category':<15} {'Amount':<10}")
+    print("-" * 25)
+    for category, amount in category_total.items():
+        print(f"{category:<15} {amount:<10.2f}")
+    print("-" * 25)
+    print(f"{'Total':<15} {category_total.sum():<10.2f}")
