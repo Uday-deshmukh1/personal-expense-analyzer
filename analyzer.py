@@ -50,3 +50,18 @@ def display_category_analysis():
         print(f"{category:<15} {amount:<10.2f}")
     print("-" * 25)
     print(f"{'Total':<15} {category_total.sum():<10.2f}")
+
+
+def display_payment_analysis():
+    print("\n--- Payment Method Analysis ---")
+    df = load_dataframe()
+    if df.empty:
+        print("No expenses recorded yet.")
+        return
+    payment_total = df.groupby("payment_method")["amount"].sum().sort_values(ascending=False)
+    print(f"{'Payment Method':<15} {'Amount':<10}")
+    print("-" * 25)
+    for method, amount in payment_total.items():
+        print(f"{method:<15} {amount:<10.2f}")
+    print("-" * 25)
+    print(f"{'Total':<15} {payment_total.sum():<10.2f}")
