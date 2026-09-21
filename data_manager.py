@@ -34,3 +34,15 @@ def get_next_id():
     if ids:
         return max(ids) + 1
     return 1
+
+
+def load_all_expenses():
+    ensure_csv_file()
+    expenses = []
+    with open(CSV_FILE, "r") as file:
+        reader = csv.DictReader(file)
+        for row in reader:
+            if row["expense_id"]:
+                row["amount"] = float(row["amount"])
+                expenses.append(row)
+    return expenses
