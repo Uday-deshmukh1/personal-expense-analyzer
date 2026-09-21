@@ -9,7 +9,7 @@ from analyzer import (
     display_highest_expense,
     display_monthly_analysis,
 )
-from report import generate_category_graph, generate_monthly_graph
+from report import generate_category_graph, generate_monthly_graph, generate_summary_report
 
 
 def print_menu():
@@ -59,7 +59,7 @@ def main():
                 generate_category_graph()
                 generate_monthly_graph()
             elif choice == "11":
-                print("Report generation coming soon.")
+                generate_summary_report()
             elif choice == "12":
                 print("Goodbye!")
                 sys.exit()
