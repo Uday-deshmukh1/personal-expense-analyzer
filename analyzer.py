@@ -24,3 +24,14 @@ def display_total_expense():
         print("No expenses recorded yet.")
     else:
         print(f"Total Expense: {total:.2f}")
+
+
+def display_average_expense():
+    print("\n--- Average Expense ---")
+    df = load_dataframe()
+    if df.empty:
+        print("No expenses recorded yet.")
+        return
+    average = df["amount"].mean()
+    print(f"Number of expenses: {len(df)}")
+    print(f"Average expense: {average:.2f}")
