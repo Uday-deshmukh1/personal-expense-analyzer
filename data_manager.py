@@ -46,3 +46,15 @@ def load_all_expenses():
                 row["amount"] = float(row["amount"])
                 expenses.append(row)
     return expenses
+
+
+def delete_expense_by_id(expense_id):
+    expenses = load_all_expenses()
+    updated = [e for e in expenses if e["expense_id"] != str(expense_id)]
+    if len(updated) == len(expenses):
+        return False
+    with open(CSV_FILE, "w", newline="") as file:
+        writer = csv.DictWriter(file, fieldnames=COLUMNS)
+        writer.writeheader()
+        writer.writerows(updated)
+    return True

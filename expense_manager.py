@@ -1,5 +1,5 @@
 from expense import Expense
-from data_manager import save_expense, get_next_id, load_all_expenses
+from data_manager import save_expense, get_next_id, load_all_expenses, delete_expense_by_id
 from validation import get_validated_expense_input
 
 
@@ -25,3 +25,23 @@ def view_expenses():
     for exp in expenses:
         print(f"{exp['expense_id']:<5} {exp['date']:<12} {exp['category']:<15} "
               f"{exp['description']:<20} {exp['amount']:<10.2f} {exp['payment_method']:<12}")
+
+
+def delete_expense():
+    print("\n--- Delete Expense ---")
+    expenses = load_all_expenses()
+    if not expenses:
+        print("No expenses to delete.")
+        return
+
+    view_expenses()
+    try:
+        expense_id = int(input("\nEnter expense ID to delete: "))
+    except ValueError:
+        print("Invalid ID. Please enter a number.")
+        return
+
+    if delete_expense_by_id(expense_id):
+        print(f"Expense #{expense_id} deleted successfully.")
+    else:
+        print(f"Expense #{expense_id} not found.")
