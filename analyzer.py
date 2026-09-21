@@ -80,3 +80,20 @@ def display_highest_expense():
     print(f"Description: {highest['description']}")
     print(f"Amount:      {highest['amount']:.2f}")
     print(f"Payment:     {highest['payment_method']}")
+
+
+def display_monthly_analysis():
+    print("\n--- Monthly Expense Analysis ---")
+    df = load_dataframe()
+    if df.empty:
+        print("No expenses recorded yet.")
+        return
+    df["date"] = pd.to_datetime(df["date"], errors="coerce")
+    df["month"] = df["date"].dt.to_period("M")
+    monthly_total = df.groupby("month")["amount"].sum().sort_index()
+    print(f"{'Month':<12} {'Amount':<10}")
+    print("-" * 22)
+    for month, amount in monthly_total.items():
+        print(f"{str(month):<12} {amount:<10.2f}")
+    print("-" * 22)
+    print(f"{'Total':<12} {monthly_total.sum():<10.2f}")
