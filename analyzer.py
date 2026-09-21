@@ -65,3 +65,18 @@ def display_payment_analysis():
         print(f"{method:<15} {amount:<10.2f}")
     print("-" * 25)
     print(f"{'Total':<15} {payment_total.sum():<10.2f}")
+
+
+def display_highest_expense():
+    print("\n--- Highest Expense ---")
+    df = load_dataframe()
+    if df.empty:
+        print("No expenses recorded yet.")
+        return
+    highest = df.loc[df["amount"].idxmax()]
+    print(f"ID:          {highest['expense_id']}")
+    print(f"Date:        {highest['date']}")
+    print(f"Category:    {highest['category']}")
+    print(f"Description: {highest['description']}")
+    print(f"Amount:      {highest['amount']:.2f}")
+    print(f"Payment:     {highest['payment_method']}")
